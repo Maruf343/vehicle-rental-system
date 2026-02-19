@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import { pool } from "../config/db";
 
-const auth = () =>{
+const auth = (...roles:string[]) =>{
     return async (req: Request,res: Response, next: NextFunction)=>{
         const token = req.headers.authorization;
         if(!token){
@@ -20,6 +20,9 @@ const auth = () =>{
             throw new Error("User not found")
         }
         req.user= decode;
+        if(roles.length > 0 && !roles.includes(decode.role)){
+            throw new Error("You are not authorized")
+        }
         next();
     }
 }

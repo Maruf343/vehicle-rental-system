@@ -27,7 +27,8 @@ const loginUserIntoDB = async(email: string, password:string)=>{
     const jwtPayload = {
         id: user.rows[0].id,
         email: user.rows[0].email,
-        name: user.rows[0].name
+        name: user.rows[0].name,
+        role: user.rows[0].role
     }
     const token = jwt.sign(jwtPayload,process.env.JWT_SECRET as string,{expiresIn: "7d"})
     delete user.rows[0].password;

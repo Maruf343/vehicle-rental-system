@@ -13,7 +13,7 @@ const getUserByIdFromDB = async(id:string)=>{
         `SELECT id,name,email,phone,role,created_at FROM users WHERE id = $1`,
         [id]
     )
-    return result;
+    return result.rows[0];
 }
 const updateUserIntoDB = async(payload: Record<string,unknown>, id:string)=>{
     const {name,email,phone} = payload;

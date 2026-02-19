@@ -2,17 +2,15 @@ import express, { Request, Response } from 'express';
 import initDB from './config/db';
 import { userRoute } from './modules/users/user.routes';
 import { authRoute } from './auth/auth.route';
+import { vehicleRoute } from './modules/vehicle/vehicle.route';
+import { bookingRoute } from './modules/booking/booking.route';
 
 const app = express();
 app.use(express.json());
-
-// app.post("/users", async (req: Request, res: Response) => {
-//     const body = req.body;
-//     console.log(body);
-// })
-
 app.use("/api/v1/users",userRoute)
 app.use("/api/v1/auth",authRoute)
+app.use("/api/v1/vehicles", vehicleRoute)
+app.use("/api/v1/bookings", bookingRoute)
 
 initDB();
 
